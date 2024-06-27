@@ -1,49 +1,56 @@
-# BOL-Handling
-### Project Description for GitHub Repository
-
 ---
 
-# Automated Processing and Verification of Export Documents
+# Resume Classification with XGBoost
 
-This project aims to automate the processing and verification of export-related documents such as invoices and bills of lading using machine learning, OCR, and NLP techniques. The primary goal is to reduce the time and errors associated with manual document handling.
+This project demonstrates a machine learning approach to classify resumes into different categories using XGBoost. Resumes are preprocessed and vectorized to train an XGBoost model, which is evaluated for accuracy in predicting job categories.
 
-## Features
+## Table of Contents
 
-- **Data Collection and Preprocessing**: Collects and preprocesses export-related documents from diverse sources.
-- **OCR Integration**: Uses Optical Character Recognition (OCR) to convert scanned images of documents into machine-readable text.
-- **NLP Techniques**: Applies Natural Language Processing (NLP) to extract key information from the text, such as shipper, consignee, and shipment details.
-- **Logistic Regression Model**: Trains a logistic regression model to classify entries as correct or incorrect, identifying errors and anomalies.
-- **Real-time Processing**: Deploys the trained model using Flask for real-time document processing and verification.
-- **Continuous Improvement**: Implements a feedback loop to continuously update and improve the models based on user feedback.
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Dependencies](#dependencies)
+- [License](#license)
 
-## Datasets
+## Introduction
 
-The project uses datasets containing export-related documents, including information on shipments, suppliers, and companies.
+The project focuses on automating the categorization of resumes based on their content. It preprocesses textual data, extracts features using TF-IDF vectorization, addresses class imbalance with SMOTE, and trains an XGBoost classifier to predict job categories accurately.
 
-## How to Use
+## Installation
 
-1. **Clone the Repository**: `git clone https://github.com/zayn2003/BOL-Handling.git`
-2. **Install Dependencies**: `pip install -r requirements.txt`
-3. **Run the Application**: `python app.py`
-4. **Upload Documents**: Use the provided interface to upload and process documents.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/zayn2003/Resume-classification.git
+   cd Resume-classification
+   ```
 
-## Technologies Used
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-- Python
-- Pandas
-- Matplotlib
-- Seaborn
-- Tesseract OCR
-- Natural Language Processing (NLP)
-- Logistic Regression
-- Flask
+3. Download NLTK data:
+   ```bash
+   python -m nltk.downloader stopwords wordnet
+   ```
 
-## Contributing
+## Usage
 
-Contributions are welcome! Please create a pull request or open an issue for any improvements or bug fixes.
+1. Place your resume dataset (`Resume.csv`) in the project directory.
+2. Run the preprocessing and model training script
+3. Evaluate the trained model and view classification results.
+
+## Dependencies
+
+- pandas
+- numpy
+- scikit-learn
+- imbalanced-learn
+- xgboost
+- nltk
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ---
