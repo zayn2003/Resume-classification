@@ -9,12 +9,8 @@ import re
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 import nltk
-from flask_cors import CORS, cross_origin
-import fitz  # PyMuPDF
 
 app = Flask(__name__)
-cors = CORS(app)
-app.config['CORS_HEADERS'] = 'Content-Type'
 
 # Load the models
 xgb_model = joblib.load('pkl/xgb_model.pkl')
@@ -27,14 +23,11 @@ def extract_text_from_pdf(pdf_file):
         pdf_file.save(temp_file.name)
     
     text = ""
-    doc = fitz.open(temp_file.name)
-    for page_num in range(len(doc)):
-        page = doc.load_page(page_num)
-        text += page.get_text()
+    pages = convert_from_path(temp_file.name, 500)  # Convert PDF to images
+    for page in pages:
+        text += pytesseract.image_to_string(page)
     
-    doc.close()  # Close the PDF document
     os.remove(temp_file.name)  # Delete the temporary file
-    
     return text
 
 def extract_text_from_image(image_file):
@@ -56,7 +49,6 @@ def preprocess_text(text):
     return ' '.join(tokens)  # Return processed text as a single string
 
 @app.route('/upload', methods=['POST'])
-@cross_origin()
 def upload():
     file = request.files['file']
     skill_set = request.form.get('skills', '').split(',')
@@ -68,13 +60,13 @@ def upload():
     else:
         return jsonify({'error': 'Unsupported file format'}), 400
 
-    # Process the extracted text with the model (add your text processing and classification code here)
+    # Process the extracted text with the model
     processed_text = preprocess_text(text)
     vectorized_text = vectorizer.transform([processed_text])
     prediction = xgb_model.predict(vectorized_text)
     category = label_encoder.inverse_transform(prediction)[0]
 
-    # Filter by skills (add your skill filtering code here)
+    # Filter by skills
     filtered = any(skill.lower() in processed_text for skill in skill_set)
 
     return jsonify({'category': category, 'filtered': filtered})
