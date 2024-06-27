@@ -6,13 +6,22 @@
     <title>Resume Classifier</title>
     <style>
         body {
-            ont-family: Arial, sans-serif;
+            font-family: Arial, sans-serif;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
             background-color: #1a1a1a;
             margin: 0;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
         }
         form {
             background-color: #333;
@@ -21,23 +30,23 @@
             text-align: center;
             width: 300px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         label, input {
             margin-bottom: 10px;
         }
-        .uploadForm form {
-            display: flex;
-            flex-direction: column;
-        }
-        .uploadForm input {
+        input {
             margin-bottom: 10px;
             padding: 10px;
             border: none;
             border-radius: 5px;
+            text-align: center;
         }
         button {
             padding: 10px;
-            background-color: #007bff;
+            background-color: #917c7c;
             color: white;
             border: none;
             cursor: pointer;
@@ -48,23 +57,35 @@
         .result {
             margin-top: 20px;
         }
-        .file{
-            align-self: center;
+        footer {
+            background-color: #333;
+            padding: 10px 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            color: white;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
         }
     </style>
 </head>
 <body>
 
-    <form id="uploadForm">
-        <h2 style="color: white;">Upload Resume to Classify</h2>
-        <label for="file">Upload Resume (PDF or Image):<br></label>
-        
-        <input type="file" id="file" name="file" accept=".pdf,.png,.jpg,.jpeg" required><br>
-        <br>
-        <button type="submit">Classify Resume</button>
-    </form>
+    <div class="container">
+        <form id="uploadForm">
+            <h2 style="color: rgb(150, 139, 139);">Upload Resume</h2>
+            <label for="file" style="color: azure;">Upload Resume (PDF or Image):</label>
+            <input type="file" id="file" name="file" accept=".pdf,.png,.jpg,.jpeg" required  style="padding-left: 25%; color: azure;">
+            <button type="submit">Classify Resume</button>
+        </form>
 
-    <div id="result" class="result"></div>
+        <div id="result" class="result"></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Resume Classifier. All rights reserved.</p>
+    </footer>
 
     <script>
         document.getElementById('uploadForm').addEventListener('submit', async function(event) {

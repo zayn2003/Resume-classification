@@ -40,9 +40,21 @@
             color: #fff;
             cursor: pointer;
         }
+        footer {
+            background-color: #333;
+            padding: 10px 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            color: white;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+        }
     </style>
 </head>
 <body>
+
     <div class="login-container">
         <h2>Log in to manage your account</h2>
         <form action="{{ url_for('login') }}" method="POST">
@@ -52,5 +64,9 @@
         </form>
         
     </div>
+    
+    <footer>
+        <p>&copy; 2024 Resume Classifier. All rights reserved.</p>
+    </footer>
 </body>
 </html>
