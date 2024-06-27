@@ -1,7 +1,6 @@
 import os
 import re
 import tempfile
-
 import fitz  # PyMuPDF
 import joblib
 import nltk
@@ -18,7 +17,7 @@ CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 # Load the models
-xgb_model = joblib.load('pkl/xgb_model.pkl')
+xgb_model = joblib.load('pkl/best_xgb_model.pkl')
 vectorizer = joblib.load('pkl/vectorizer.pkl')
 label_encoder = joblib.load('pkl/label_encoder.pkl')
 
