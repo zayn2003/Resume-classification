@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Classifier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        label, input {
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Resume Classifier</h2>
+    <form id="uploadForm">
+        <label for="file">Upload Resume (PDF or Image):</label>
+        <input type="file" id="file" name="file" accept=".pdf,.png,.jpg,.jpeg" required>
+        
+        <label for="skills">Enter Skills (comma-separated):</label>
+        <input type="text" id="skills" name="skills" required>
+
+        <button type="submit">Classify Resume</button>
+    </form>
+
+    <div id="result" class="result"></div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            let form = event.target;
+            let formData = new FormData(form);
+
+            try {
+                let response = await fetch('http://localhost:5000/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                let result = await response.json();
+                displayResult(result);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+
+        function displayResult(result) {
+            let resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `<p><strong>Category:</strong> ${result.category}</p>
+                                   <p><strong>Filtered:</strong> ${result.filtered}</p>`;
+        }
+    </script>
+</body>
+</html>
