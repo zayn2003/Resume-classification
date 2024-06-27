@@ -6,17 +6,34 @@
     <title>Resume Classifier</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            ont-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #1a1a1a;
+            margin: 0;
         }
         form {
-            display: flex;
-            flex-direction: column;
-            max-width: 400px;
-            margin: 0 auto;
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            width: 300px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
         label, input {
             margin-bottom: 10px;
+        }
+        .uploadForm form {
+            display: flex;
+            flex-direction: column;
+        }
+        .uploadForm input {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
         }
         button {
             padding: 10px;
@@ -31,17 +48,19 @@
         .result {
             margin-top: 20px;
         }
+        .file{
+            align-self: center;
+        }
     </style>
 </head>
 <body>
-    <h2>Resume Classifier</h2>
-    <form id="uploadForm">
-        <label for="file">Upload Resume (PDF or Image):</label>
-        <input type="file" id="file" name="file" accept=".pdf,.png,.jpg,.jpeg" required>
-        
-        <label for="skills">Enter Skills (comma-separated):</label>
-        <input type="text" id="skills" name="skills" required>
 
+    <form id="uploadForm">
+        <h2 style="color: white;">Upload Resume to Classify</h2>
+        <label for="file">Upload Resume (PDF or Image):<br></label>
+        
+        <input type="file" id="file" name="file" accept=".pdf,.png,.jpg,.jpeg" required><br>
+        <br>
         <button type="submit">Classify Resume</button>
     </form>
 
@@ -55,7 +74,7 @@
             let formData = new FormData(form);
 
             try {
-                let response = await fetch('http://localhost:5000/upload', {
+                let response = await fetch('/upload', {
                     method: 'POST',
                     body: formData
                 });
