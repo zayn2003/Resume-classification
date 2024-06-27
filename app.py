@@ -17,9 +17,9 @@ cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 # Load the models
-xgb_model = joblib.load('/pkl/xgb_model.pkl')
-vectorizer = joblib.load('/pkl/vectorizer.pkl')
-label_encoder = joblib.load('/pkl/label_encoder.pkl')
+xgb_model = joblib.load('pkl/xgb_model.pkl')
+vectorizer = joblib.load('pkl/vectorizer.pkl')
+label_encoder = joblib.load('pkl/label_encoder.pkl')
 
 def extract_text_from_pdf(pdf_file):
     # Save the FileStorage object to a temporary file
